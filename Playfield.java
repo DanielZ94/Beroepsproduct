@@ -1,8 +1,9 @@
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Playfield  {
+public class Playfield{
 
     /**
      * in this class you can play a level, after you finish a level
@@ -22,6 +23,7 @@ public class Playfield  {
     protected static JPanel fieldGrid;
     protected static JPanel infoPanel;
     public static JLabel info;
+    public static JFrame frame;
 
     public Playfield() {
         //checks which level is chosen and applies that level
@@ -38,7 +40,7 @@ public class Playfield  {
             originalGrid = Levels.lvl3;
         }
 
-        JFrame frame = new JFrame();
+        this.frame = new JFrame();
         frame.setTitle(TITLE);
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 
@@ -95,7 +97,7 @@ public class Playfield  {
      * kx = key (with value x)
      */
 
-    protected static void drawGrid () {
+    public static void drawGrid () {
         fieldGrid.removeAll();
         fieldGrid.setBackground(new Color(4, 167, 12));
 
@@ -147,5 +149,6 @@ public class Playfield  {
     }
 
     public void close() {
+
     }
 }
