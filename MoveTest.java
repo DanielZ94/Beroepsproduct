@@ -28,7 +28,7 @@ public class MoveTest {
     };
 
     /**
-    * cheks if left is a legal move
+    * checks if left is a legal move
     */
     public void left() {
         if (columns > 1 && grid[rows][columns-1].equals("g") || columns > 1 && grid[rows][columns-1].equals("k100") || columns > 1 && grid[rows][columns-1].equals("k200") ||
@@ -42,7 +42,7 @@ public class MoveTest {
     }
 
     /**
-    * cheks if right is a legal move
+    * checks if right is a legal move
     */
     public void right() {
         if (columns < 9 && grid[rows][columns+1].equals("g") || columns < 9 && grid[rows][columns+1].equals("k100") ||
@@ -57,7 +57,7 @@ public class MoveTest {
 
 
     /**
-    * cheks if up is a legal move
+    * checks if up is a legal move
     */
     public void up() {
         if (rows > 1 && grid[rows-1][columns].equals("g") || rows > 1 && grid[rows-1][columns].equals("k100") ||
@@ -71,7 +71,7 @@ public class MoveTest {
     }
 
    /**
-    * cheks if down is a legal move
+    * checks if down is a legal move
     */
     public void down() {
         if (rows > 9) {
