@@ -1,23 +1,65 @@
 import javax.swing.*;
-import javax.xml.bind.Marshaller;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Arrays;
-import java.util.logging.Level;
 
 class Move extends JFrame implements KeyListener {
 
+    /**
+     * movement system,
+     * causes the player to move if any arrow key is pressed
+     */
+
     public int rows = 0; // the row in which the player is located
     public int columns = 0; // the column in which the player is located
-    private int attempts = 1; //the number of attempts
 
+    public Move() {}
 
+    /**
+     * moves the player to the left
+     */
 
+    public void left() {
+        Playfield.grid[rows][columns] = "g";
+        columns--;
+        Playfield.grid[rows][columns] = "p" ;
+        System.out.println(rows + ", " + columns);
+        Playfield.drawGrid();
+    }
 
-    public Move(){
+    /**
+     * moves the player to the right
+     */
 
+    public void right() {
+        Playfield.grid[rows][columns] = "g";
+        columns++;
+        Playfield.grid[rows][columns] = "p" ;
+        System.out.println(rows + ", " + columns);
+        Playfield.drawGrid();
+    }
+
+    /**
+     * moves the player up
+     */
+
+    public void up() {
+        Playfield.grid[rows][columns] = "g";
+        rows--;
+        Playfield.grid[rows][columns] = "p" ;
+        System.out.println(rows + ", " + columns);
+        Playfield.drawGrid();
+    }
+
+    /**
+     * moves the player down
+     */
+
+    public void down() {
+        Playfield.grid[rows][columns] = "g";
+        rows++;
+        Playfield.grid[rows][columns] = "p" ;
+        System.out.println(rows + ", " + columns);
+        Playfield.drawGrid();
     }
 
 
@@ -28,7 +70,7 @@ class Move extends JFrame implements KeyListener {
     /**
      * @param e
      * the key which is pressed
-     * you can use the arrow keys to move around
+     * when a arrow key is pressed, the program will check if a move is legal
      */
 
     public void keyPressed(KeyEvent e) {
@@ -37,145 +79,84 @@ class Move extends JFrame implements KeyListener {
         switch (keyCode) {
 
             //when left key is pressed
-            case KeyEvent.VK_LEFT: //moves player to the left
+            case KeyEvent.VK_LEFT:
                 if (columns > 0 && Playfield.grid[rows][columns-1].equals("g")) {
-                    Playfield.grid[rows][columns] = "g";
-                    columns--;
-                    Playfield.grid[rows][columns] = "p" ;
-                    System.out.println(rows + ", " + columns);
-                    Playfield.drawGrid();
+                    left();
                 } else if (columns > 0 && Playfield.grid[rows][columns-1].equals("k100")) {
-                    Playfield.grid[rows][columns] = "g";
-                    columns--;
-                    Playfield.grid[rows][columns] = "p" ;
-                    System.out.println(rows + ", " + columns);
+                    left();
                     Playfield.info.setText("you found a key");
                     Playfield.keyValue = 100;
-                    Playfield.drawGrid();
                 } else if (columns > 0 && Playfield.grid[rows][columns-1].equals("k200")) {
-                    Playfield.grid[rows][columns] = "g";
-                    columns--;
-                    Playfield.grid[rows][columns] = "p" ;
-                    System.out.println(rows + ", " + columns);
+                    left();
                     Playfield.info.setText("you found a scissor");
                     Playfield.keyValue = 200;
-                    Playfield.drawGrid();
                 } else if (columns > 0 && Playfield.grid[rows][columns-1].equals("k300")) {
-                    Playfield.grid[rows][columns] = "g";
-                    columns--;
-                    Playfield.grid[rows][columns] = "p" ;
-                    System.out.println(rows + ", " + columns);
+                    left();
                     Playfield.info.setText("you found a chainsaw");
                     Playfield.keyValue = 300;
-                    Playfield.drawGrid();
                 } else if (columns > 0 && Playfield.grid[rows][columns-1].equals("b100") && Playfield.keyValue != 100) {
                     Playfield.info.setText("you need a key to open this barricade");
-                    Playfield.info.setText("");
                 } else if (columns > 0 && Playfield.grid[rows][columns-1].equals("b200") && Playfield.keyValue != 200) {
-                    Playfield.info.setText("you need a key to open this barricade");
+                    Playfield.info.setText("you need a scissor to cut this bush");
                 } else if (columns > 0 && Playfield.grid[rows][columns-1].equals("b300") && Playfield.keyValue != 300) {
                     Playfield.info.setText("");
                     Playfield.info.setText("you need a chainsaw to break this stump");
                 } else if (columns > 0 && Playfield.grid[rows][columns-1].equals("b100") || columns > 0 && Playfield.grid[rows][columns-1].equals("b200") || columns > 0 && Playfield.grid[rows][columns-1].equals("b300")) {
-                    Playfield.grid[rows][columns] = "g";
-                    columns--;
-                    Playfield.grid[rows][columns] = "p" ;
-                    System.out.println(rows + ", " + columns);
-                    Playfield.drawGrid();
+                    left();
                 } else {
                     Playfield.info.setText("you can't go there");
                 }
                 break;
 
             //when right key is pressed
-            case KeyEvent.VK_RIGHT: //moves player to the right
+            case KeyEvent.VK_RIGHT:
                 if (columns < 9 && Playfield.grid[rows][columns+1].equals("g")) {
-                    Playfield.grid[rows][columns] = "g";
-                    columns++;
-                    Playfield.grid[rows][columns] = "p" ;
-                    System.out.println(rows + ", " + columns);
-                    Playfield.drawGrid();
+                   right();
                 } else if (columns < 9 && Playfield.grid[rows][columns+1].equals("f")) {
-                    Playfield.grid[rows][columns] = "g";
-                    columns++;
-                    Playfield.grid[rows][columns] = "p" ;
-                    System.out.println(rows + ", " + columns);
-                    Playfield.drawGrid();
+                    right();
                     finish();
                 } else if (columns < 9 && Playfield.grid[rows][columns+1].equals("k100")) {
                     Playfield.grid[rows][columns] = "g";
-                    columns++;
-                    Playfield.grid[rows][columns] = "p" ;
-                    System.out.println(rows + ", " + columns);
-                    Playfield.info.setText("");
+                    right();
                     Playfield.info.setText("you found a key");
                     Playfield.keyValue = 100;
-                    Playfield.drawGrid();
                 } else if (columns < 9 && Playfield.grid[rows][columns+1].equals("k200")) {
-                    Playfield.grid[rows][columns] = "g";
-                    columns++;
-                    Playfield.grid[rows][columns] = "p" ;
-                    System.out.println(rows + ", " + columns);
+                    right();
                     Playfield.info.setText("you found a scissor");
                     Playfield.keyValue = 200;
-                    Playfield.drawGrid();
                 } else if (columns < 9 && Playfield.grid[rows][columns+1].equals("k300")) {
-                    Playfield.grid[rows][columns] = "g";
-                    columns++;
-                    Playfield.grid[rows][columns] = "p" ;
-                    System.out.println(rows + ", " + columns);
+                    right();
                     Playfield.info.setText("you found a chainsaw");
                     Playfield.keyValue = 300;
-                    Playfield.drawGrid();
                 } else if (columns < 9 && Playfield.grid[rows][columns+1].equals("b100") && Playfield.keyValue != 100) {
                     Playfield.info.setText("you need a key to open this barricade");
                 } else if (columns < 9 && Playfield.grid[rows][columns+1].equals("b200") && Playfield.keyValue != 200) {
-                    Playfield.info.setText("");
+                    Playfield.info.setText("you need a scissor to cut this bush");
                 } else if (columns < 9 && Playfield.grid[rows][columns+1].equals("b300") && Playfield.keyValue != 300) {
                     Playfield.info.setText("you need a chainsaw to break this stump");
                 } else if (columns < 9 && Playfield.grid[rows][columns+1].equals("b100") || columns < 9 && Playfield.grid[rows][columns+1].equals("b200") || columns < 9 && Playfield.grid[rows][columns+1].equals("b300")) {
-                    Playfield.grid[rows][columns] = "g";
-                    columns++;
-                    Playfield.grid[rows][columns] = "p" ;
-                    System.out.println(rows + ", " + columns);
-                    Playfield.drawGrid();
+                    right();
                 } else {
                     Playfield.info.setText("you can't go there");
                 }
                 break;
 
             //when up key is pressed
-            case KeyEvent.VK_UP: //moves player up
+            case KeyEvent.VK_UP:
                 if (rows > 0 && Playfield.grid[rows-1][columns].equals("g")) {
-                    Playfield.grid[rows][columns] = "g";
-                    rows--;
-                    Playfield.grid[rows][columns] = "p" ;
-                    System.out.println(rows + ", " + columns);
-                    Playfield.drawGrid();
+                    up();
                 } else if (rows > 0 && Playfield.grid[rows-1][columns].equals("k100")) {
-                    Playfield.grid[rows][columns] = "g";
-                    rows--;
-                    Playfield.grid[rows][columns] = "p" ;
-                    System.out.println(rows + ", " + columns);
+                    up();
                     Playfield.info.setText("you found a key");
                     Playfield.keyValue = 100;
-                    Playfield.drawGrid();
                 } else if (rows > 0 && Playfield.grid[rows-1][columns].equals("k200")) {
-                    Playfield.grid[rows][columns] = "g";
-                    rows--;
-                    Playfield.grid[rows][columns] = "p" ;
-                    System.out.println(rows + ", " + columns);
+                    up();
                     Playfield.info.setText("you found a scissor");
                     Playfield.keyValue = 200;
-                    Playfield.drawGrid();
                 } else if (rows > 0 && Playfield.grid[rows-1][columns].equals("k300")) {
-                    Playfield.grid[rows][columns] = "g";
-                    rows--;
-                    Playfield.grid[rows][columns] = "p" ;
-                    System.out.println(rows + ", " + columns);
+                    up();
                     Playfield.info.setText("you found a chainsaw");
                     Playfield.keyValue = 300;
-                    Playfield.drawGrid();
                 } else if (rows > 0 && Playfield.grid[rows-1][columns].equals("b100") && Playfield.keyValue != 100) {
                     Playfield.info.setText("you need a key to open this barricade");
                 } else if (rows > 0 && Playfield.grid[rows-1][columns].equals("b200") &&Playfield. keyValue != 200) {
@@ -183,54 +164,31 @@ class Move extends JFrame implements KeyListener {
                 } else if (rows > 0 && Playfield.grid[rows-1][columns].equals("b300") &&Playfield. keyValue != 300) {
                     Playfield.info.setText("you need a chainsaw to break this stump");
                 } else if (rows > 0 && Playfield.grid[rows-1][columns].equals("b100") || rows > 0 && Playfield.grid[rows-1][columns].equals("b200") || rows > 0 && Playfield.grid[rows-1][columns].equals("b300")) {
-                    Playfield.grid[rows][columns] = "g";
-                    rows--;
-                    Playfield.grid[rows][columns] = "p" ;
-                    System.out.println(rows + ", " + columns);
-                    Playfield.drawGrid();
+                    up();
                 } else {
                     Playfield.info.setText("you can't go there");
                 }
                 break;
 
             //when down key is pressed
-            case KeyEvent.VK_DOWN: //moves player down
+            case KeyEvent.VK_DOWN:
                 if (rows < 9 && Playfield.grid[rows+1][columns].equals("g")) {
-                    Playfield.grid[rows][columns] = "g";
-                    rows++;
-                    Playfield.grid[rows][columns] = "p" ;
-                    System.out.println(rows + ", " + columns);
-                    Playfield.drawGrid();
+                    down();
                 } else if (rows < 9 && Playfield.grid[rows+1][columns].equals("f")) {
-                    Playfield.grid[rows][columns] = "g";
-                    rows++;
-                    Playfield.grid[rows][columns] = "p" ;
-                    Playfield.drawGrid();
+                    down();
                     finish();
                 } else if (rows < 9 && Playfield.grid[rows+1][columns].equals("k100")) {
-                    Playfield.grid[rows][columns] = "g";
-                    rows++;
-                    Playfield.grid[rows][columns] = "p" ;
-                    System.out.println(rows + ", " + columns);
+                    down();
                     Playfield.info.setText("you found a key");
                     Playfield.keyValue = 100;
-                    Playfield.drawGrid();
                 } else if (rows < 9 && Playfield.grid[rows+1][columns].equals("k200")) {
-                    Playfield.grid[rows][columns] = "g";
-                    rows++;
-                    Playfield.grid[rows][columns] = "p" ;
-                    System.out.println(rows + ", " + columns);
+                    down();
                     Playfield.info.setText("you found a scissor");
                     Playfield.keyValue = 200;
-                    Playfield.drawGrid();
                 } else if (rows < 9 && Playfield.grid[rows+1][columns].equals("k300")) {
-                    Playfield.grid[rows][columns] = "g";
-                    rows++;
-                    Playfield.grid[rows][columns] = "p" ;
-                    System.out.println(rows + ", " + columns);
+                    down();
                     Playfield.info.setText("you found a chainsaw");
                     Playfield.keyValue = 300;
-                    Playfield.drawGrid();
                 } else if (rows < 9 && Playfield.grid[rows+1][columns].equals("b100") && Playfield.keyValue != 100) {
                     Playfield.info.setText("you need a key to open this barricade");
                 } else if (rows < 9 && Playfield.grid[rows+1][columns].equals("b200") && Playfield.keyValue != 200) {
@@ -238,11 +196,7 @@ class Move extends JFrame implements KeyListener {
                 } else if (rows < 9 && Playfield.grid[rows+1][columns].equals("b300") && Playfield.keyValue != 300) {
                     Playfield.info.setText("you need a chainsaw to break this stump");
                 } else if (rows < 9 && Playfield.grid[rows+1][columns].equals("b100") || rows < 9 && Playfield.grid[rows+1][columns].equals("b200") || rows < 9 && Playfield.grid[rows+1][columns].equals("b300")) {
-                    Playfield.grid[rows][columns] = "g";
-                    rows++;
-                    Playfield.grid[rows][columns] = "p" ;
-                    System.out.println(rows + ", " + columns);
-                    Playfield.drawGrid();
+                    down();
                 } else {
                     Playfield.info.setText("you can't go there");
                 }
@@ -253,7 +207,7 @@ class Move extends JFrame implements KeyListener {
                 rows = 0;
                 columns = 0;
                 Playfield.keyValue = 0;
-                attempts++;
+
                 if (StartMenu.level.equals("level 1")) {
                     String[][] lvl1 = { //level 1
                             {"p", "w", "k300", "w", "k200", "w", "b300", "k100", "w", "w"},
@@ -297,7 +251,6 @@ class Move extends JFrame implements KeyListener {
                     };
                     Playfield.grid = lvl3;
                 }
-
                 Playfield.drawGrid();
                 Playfield.info.setText("level has been reset");
                 break;
@@ -307,7 +260,10 @@ class Move extends JFrame implements KeyListener {
         //no code here
     }
 
-    public void finish() {  //todo change method so player will return to StartMenu
+    /**
+     * closes the level and sends player to the Endscreen
+     */
+    public void finish() {
         Endscreen es = new Endscreen();
         Playfield.drawGrid();
         Playfield.frame.setVisible(false);
