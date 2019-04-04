@@ -7,7 +7,9 @@ import java.awt.event.KeyEvent;
 import static org.junit.Assert.*;
 
 public class MoveTest {
-
+/**
+* simple test with a simplified level
+*/
     private int rows = 0; // the row in which the player is located
     private int columns = 0; // the column in which the player is located
     private Point point = new Point();
@@ -25,7 +27,9 @@ public class MoveTest {
             {"g", "g", "g",    "g", "g", "g", "g", "g", "g", "g"}
     };
 
-    //@Test
+    /**
+    * cheks if left is a legal move
+    */
     public void left() {
         if (columns > 1 && grid[rows][columns-1].equals("g") || columns > 1 && grid[rows][columns-1].equals("k100") || columns > 1 && grid[rows][columns-1].equals("k200") ||
             columns > 1 && grid[rows-1][columns].equals("k300")) {
@@ -37,7 +41,9 @@ public class MoveTest {
         }
     }
 
-    //@Test
+    /**
+    * cheks if right is a legal move
+    */
     public void right() {
         if (columns < 9 && grid[rows][columns+1].equals("g") || columns < 9 && grid[rows][columns+1].equals("k100") ||
                 columns < 9 && grid[rows][columns+1].equals("k200") || columns < 9 && grid[rows+1][columns].equals("k300")) {
@@ -50,7 +56,9 @@ public class MoveTest {
     }
 
 
-    //@Test
+    /**
+    * cheks if up is a legal move
+    */
     public void up() {
         if (rows > 1 && grid[rows-1][columns].equals("g") || rows > 1 && grid[rows-1][columns].equals("k100") ||
                 rows > 1 && grid[rows-1][columns].equals("k200") || rows > 1 && grid[rows-1][columns].equals("k300")) {
@@ -62,7 +70,9 @@ public class MoveTest {
         }
     }
 
-   //@Test
+   /**
+    * cheks if down is a legal move
+    */
     public void down() {
         if (rows > 9) {
             System.out.println("down out of bounds");
