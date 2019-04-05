@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -9,6 +8,8 @@ public class Playfield{
      * in this class you can play a level, after you finish a level
      * you will return to the StartMenu class.
      */
+
+    // FRAME
     private static final String TITLE = "Playfield";
     private static final int FRAME_WIDTH = 650;
     private static final int FRAME_HEIGHT = 650;
@@ -16,7 +17,6 @@ public class Playfield{
     // ATTRIBUTES
     protected static int keyValue = 0;
     protected static String[][] grid;
-    protected static String[][] originalGrid;
 
     // FIELD
     protected static JPanel field;
@@ -29,24 +29,22 @@ public class Playfield{
         //checks which level is chosen and applies that level
         if (StartMenu.level.equals("level 1")) {
             grid = Levels.lvl1.clone();
-            originalGrid = Levels.lvl1;
         }
         if (StartMenu.level.equals("level 2")) {
             grid = Levels.lvl2.clone();
-            originalGrid = Levels.lvl2;
         }
         if (StartMenu.level.equals("level 3")) {
             grid = Levels.lvl3.clone();
-            originalGrid = Levels.lvl3;
         }
 
-        this.frame = new JFrame();
+        frame = new JFrame();
         frame.setTitle(TITLE);
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 
         addComponents();
         drawGrid();
 
+        // sets layout for Playfield
         frame.add(field, BorderLayout.CENTER);
         frame.add(infoPanel, BorderLayout.SOUTH);
 
@@ -55,11 +53,9 @@ public class Playfield{
         frame.addKeyListener(listener);
 
         frame.setResizable(false);
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
-
 
     /**
      * adds components to the field
@@ -81,8 +77,6 @@ public class Playfield{
         infoPanel.setPreferredSize(new Dimension(650, 25));
         info = new JLabel();
         infoPanel.add(info);
-
-
     }
 
     /**
@@ -146,9 +140,5 @@ public class Playfield{
             fieldGrid.revalidate();
         }
         info.setText(StartMenu.level);
-    }
-
-    public void close() {
-
     }
 }
